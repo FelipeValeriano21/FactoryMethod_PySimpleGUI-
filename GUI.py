@@ -1,5 +1,4 @@
 #Importando Bilbiotecas   
-
 from PySimpleGUI import PySimpleGUI as pg   
 from tkinter import *  
 from tkinter import messagebox  
@@ -8,11 +7,11 @@ import subprocess
 
 
 
- #Adicionando um Tema para a Tela GUI 
+#Adicionando um Tema para a Tela GUI 
 pg.theme('SandyBeach')   
   
 
- # Estruturando o Layout
+# Estruturando o Layout
 layout = [
     
     [pg.Text('INFORME SEU NOME:', size =(18, 1)), pg.InputText()],
@@ -45,14 +44,11 @@ class Fatec(ABC):
 # Subclasse de FATEC
 class Aluno(Fatec):
  def apresentar(self, nome,relacao_pessoa):
-
     messagebox.showinfo("PORTARIA DA FATEC INFORMA", nome + " tem relação com a instituição como " + relacao_pessoa)  
     loop()
     return f"{nome} tem relação com a instituição como {relacao_pessoa}"
    
     
-   
-
 # Subclasse de FATEC
 class Professor(Fatec):
  def apresentar(self,nome, relacao_pessoa):
@@ -93,7 +89,7 @@ class Vestibulando(Fatec):
 #ClasseFactoryMethod para delegar as instancias 
 class CriaPortaria:
  
- def Criar_Chamada(self, relacao_pessoa):
+ def Criar_Chamada(self, nome,relacao_pessoa):
    
   if relacao_pessoa == "Aluno":
    return Aluno()
@@ -108,19 +104,17 @@ class CriaPortaria:
   elif relacao_pessoa == "Vestibulando":
     return Vestibulando()
   else:
-   raise ValueError("Tipo de usuario não encontrado")
-
+   messagebox.showinfo("PORTARIA DA FATEC INFORMA", nome + " não tem nenhuma relação com a instituição, acompanhar até a secretaria")  
+   loop()
 
 #Evento de clicar no botao submeter
-
 if event == 'Submit':
 
      Cria_Portaria = CriaPortaria()
      nome = values[0]
      relacao_pessoa = values[1]
-     usuario = Cria_Portaria.Criar_Chamada(relacao_pessoa)  
+     usuario = Cria_Portaria.Criar_Chamada(nome,relacao_pessoa)  
      print(usuario.apresentar(nome, relacao_pessoa)) 
-
 
 
 
